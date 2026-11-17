@@ -97,6 +97,10 @@ import { useAiUiEnabled, useFeatures } from '@/lib/hooks/use-features';
 import { useLocale, useTranslations } from 'next-intl';
 import { formatDate } from '@/lib/utils';
 
+// Extra photos allowed per item, beyond the primary image. Mirrors the backend's
+// MAX_ADDITIONAL_IMAGES setting (app/config.py); the server enforces the real limit.
+const MAX_ADDITIONAL_IMAGES = 20;
+
 interface ItemDetailDialogProps {
   item: Item | null;
   open: boolean;
@@ -685,7 +689,7 @@ export function ItemDetailDialog({ item, open, onOpenChange }: ItemDetailDialogP
                       )}
                     </div>
                   ))}
-                  {isEditing && (item.additional_images?.length || 0) < 4 && (
+                  {isEditing && (item.additional_images?.length || 0) < MAX_ADDITIONAL_IMAGES && (
                     <label
                       className="w-12 h-12 rounded border-2 border-dashed border-muted-foreground/30 flex items-center justify-center cursor-pointer hover:border-primary/50 flex-shrink-0"
                     >

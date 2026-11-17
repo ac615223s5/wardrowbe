@@ -148,6 +148,8 @@ class Settings(BaseSettings):
     storage_path: str = Field(default="/data/wardrobe")
     max_upload_size_mb: int = Field(default=50, ge=1)
     max_bulk_upload_count: int = Field(default=20)
+    # Extra photos allowed per item, on top of the primary image.
+    max_additional_images: int = Field(default=20, ge=1)
     # Byte size is a poor proxy for decode cost: a 3.8MB JPEG can be 108MP,
     # which needs ~324MB per full-resolution RGB buffer and several exist at
     # once while variants are generated. JPEGs are drafted down before this

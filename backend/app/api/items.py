@@ -1981,10 +1981,10 @@ async def add_item_image(
     # Check max images limit
     count_result = await db.execute(select(func.count()).where(ItemImage.item_id == item_id))
     current_count = count_result.scalar() or 0
-    if current_count >= 4:
+    if current_count >= settings.max_additional_images:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Maximum of 4 additional images per item",
+            detail=f"Maximum of {settings.max_additional_images} additional images per item",
         )
 
     # Process image
